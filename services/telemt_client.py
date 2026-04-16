@@ -49,8 +49,11 @@ class TeleMTClient:
                 logger.error(msg)
                 raise Exception(msg) from None  # We don't need the lower level traceback here
             except Exception as e:
-                logger.exception(f"Unexpected error when calling TeleMT: {e}")
-                raise e
+                logger.error(f"Unexpected error when calling TeleMT: {e!s}")
+                raise HTTPException(
+                    status_code=500,
+                    detail=f"Failed to create key on TeleMT server: {e!s}"
+                )
 
     async def delete_user(self, username: str) -> bool:
         url = f"{self.base_url}/users/{username}"

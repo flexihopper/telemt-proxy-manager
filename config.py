@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     DEBUG: bool = True
 
-    TELEMT_API_URL: str = "http://localhost:9095/v1"
+    TELEMT_API_URL: str = "http://127.0.0.1:9095/v1"
     TELEMT_AUTH_HEADER: str = "mysecret"
 
     PROXY_HOST: str = "YOUR_PROXY_HOST"
