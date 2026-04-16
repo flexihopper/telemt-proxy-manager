@@ -50,15 +50,13 @@ cp .env.example .env
 docker-compose up -d
 ```
 
-### 4. Запустите API
+### 4. Настройте TeleMT
 
-Через `uv`:
+Скрипт автоматически откроет нужные порты и применит лимиты из вашего `.env`:
 
 ```bash
-uv run uvicorn main:app --reload
+python3 configure_telemt.py
 ```
-
-API будет доступно по адресу `http://localhost:8000`.
 
 ## 📖 Документация API
 
