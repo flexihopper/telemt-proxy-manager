@@ -43,3 +43,4 @@ Icon?
 
 # Docker
 .docker/
+redis_data/
