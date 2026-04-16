@@ -1,0 +1,26 @@
+[Unit]
+Description=TeleMT Proxy Manager (FastAPI)
+After=network.target redis.service docker.service
+
+[Service]
+# Укажите ваше имя пользователя на сервере
+User=root
+Group=root
+
+# Укажите полный путь к папке проекта
+WorkingDirectory=/root/telemt-proxy-manager
+
+# Путь к venv и запуск через uvicorn
+# Предполагаем, что зависимости установлены через `uv sync`
+ExecStart=/root/telemt-proxy-manager/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+
+# Автоматический перезапуск при падении
+Restart=always
+RestartSec=5
+
+# Логи в системный журнал
+StandardOutput=append:/var/log/telemt-manager.log
+StandardError=append:/var/log/telemt-manager.log
+
+[Install]
+WantedBy=multi-user.target
