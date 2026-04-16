@@ -76,7 +76,7 @@ The API will be available at `http://localhost:8000`.
 
 ## 🤝 Integration
 
-This service is designed to be consumed by Telegram bots (like `DAOFamily`).
+This service is designed to be consumed by Telegram bots (like `Telegram bots`).
 Simply send a `POST` request to `/keys/guest` and receive a ready-to-use `tg://proxy` link.
 
 ---
