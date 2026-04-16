@@ -1,0 +1,43 @@
+[project]
+name = "telemt-api"
+version = "0.1.0"
+description = "Service for managing TeleMT proxy keys"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "sqlalchemy",
+    "aiosqlite",
+    "alembic",
+    "apscheduler",
+    "redis",
+    "httpx",
+    "pydantic-settings",
+    "python-dotenv",
+    "loguru>=0.7.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+]
+
+[tool.ruff]
+# Базовые настройки
+line-length = 120
+
+[tool.ruff.lint]
+# Настройки линтера
+select = ["E", "F", "I", "B"]
+ignore = [
+    "E501", # Слишком длинные строки
+    "B008", # Вызовы функций в аргументах (нужно для Depends в FastAPI)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

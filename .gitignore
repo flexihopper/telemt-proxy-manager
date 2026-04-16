@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Databases
+telemt_keys.db
+telemt_keys.db-shm
+telemt_keys.db-wal
+
+# Secrets & Config
+.env
+telemt_config/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+*.icloud
+
+# Logs & Cache
+*.log
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+
+# Docker
+.docker/
