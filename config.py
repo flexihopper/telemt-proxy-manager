@@ -11,9 +11,6 @@ class Settings(BaseSettings):
     PROXY_PORT: int = 443
     TLS_DOMAIN: str = "google.com"
 
-    # Лимит IP на один ключ (по умолчанию 1)
-    MAX_IPS_PER_KEY: int = 1
-
     MANAGEMENT_API_KEY: str = "change_me_in_env"
 
     DATABASE_URL: str = "sqlite+aiosqlite:///./telemt_keys.db"

@@ -36,7 +36,9 @@
 
 - **URL:** `/keys/permanent`
 - **Метод:** `POST`
-- **Параметры (Query):** `tg_user_id` (integer)
+- **Параметры (Query):** 
+  - `tg_user_id` (integer): Telegram ID пользователя
+  - `max_ips` (integer, по умолчанию 1): Лимит уникальных IP-адресов
 - **Ответ (200 OK):** Аналогично гостевому, но `expires_at` будет `null`.
 
 ### 3. Удаление ключа по Telegram ID

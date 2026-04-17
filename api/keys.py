@@ -35,6 +35,7 @@ async def _create_key_internal(
     tg_user_id: Optional[int] = None,
     expires_at: Optional[datetime] = None,
     username_prefix: str = "user",
+    max_unique_ips: Optional[int] = None,
 ) -> ProxyKey:
     """Внутренняя логика создания ключа"""
 
@@ -62,7 +63,7 @@ async def _create_key_internal(
             username=username,
             secret=secret,
             expiration_rfc3339=expires_str,
-            max_unique_ips=settings.MAX_IPS_PER_KEY,
+            max_unique_ips=max_unique_ips or 1,
         )
     except Exception as e:
         logger.error(f"TeleMT creation failed: {e}")
@@ -100,10 +101,12 @@ async def create_guest_key(db: AsyncSession = Depends(get_db)):
 
 
 @router.post("/permanent", response_model=ProxyKeyResponse)
-async def create_permanent_key(tg_user_id: int, db: AsyncSession = Depends(get_db)):
+async def create_permanent_key(tg_user_id: int, max_ips: int = 1, db: AsyncSession = Depends(get_db)):
     """Создает постоянный ключ для Telegram ID."""
-    logger.info(f"Creating permanent key for user {tg_user_id}...")
-    key = await _create_key_internal(db, tg_user_id=tg_user_id, expires_at=None, username_prefix="perm")
+    logger.info(f"Creating permanent key for user {tg_user_id} with max_ips={max_ips}...")
+    key = await _create_key_internal(
+        db, tg_user_id=tg_user_id, expires_at=None, username_prefix="perm", max_unique_ips=max_ips
+    )
 
     res = ProxyKeyResponse.model_validate(key)
     res.proxy_url = generate_proxy_url(key.username, key.secret)

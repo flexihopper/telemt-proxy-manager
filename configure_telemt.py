@@ -13,7 +13,6 @@ def configure():
 
     # Если в .env нет ключей, используем дефолты
     tls_domain = env_vars.get('TLS_DOMAIN', 'ozon.ru')
-    max_ips = env_vars.get('MAX_IPS_PER_KEY', '1')
     auth_header = env_vars.get('TELEMT_AUTH_HEADER', '') # По умолчанию пустой
 
     config_path = 'telemt_config/config.toml'
@@ -33,9 +32,6 @@ def configure():
     # Ставим домен для маскировки (пробуем petrovich или google, если они там есть)
     content = re.sub(r'tls_domain = ".*"', f'tls_domain = "{tls_domain}"', content)
     
-    # Ставим глобальный лимит IP
-    content = re.sub(r'user_max_unique_ips_global_each = \d+', f'user_max_unique_ips_global_each = {max_ips}', content)
-    
     # Если в конфиге вообще нет auth_header или он пустой, а в .env есть - можем прописать (но пока оставляем по желанию)
     if auth_header:
         content = re.sub(r'auth_header = ".*"', f'auth_header = "{auth_header}"', content)
@@ -45,7 +41,6 @@ def configure():
 
     print(f"✅ Готово! Параметры из .env применены.")
     print(f"   - Domain: {tls_domain}")
-    print(f"   - IP Limit: {max_ips}")
     
     # Перезапуск
     print("\n♻️ Перезапускаю контейнеры...")
