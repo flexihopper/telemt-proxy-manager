@@ -6,7 +6,6 @@ from loguru import logger
 
 from api.keys import router as keys_router
 from config import settings
-from database import init_db
 from services.scheduler import scheduler, start_scheduler
 
 import logging
@@ -47,7 +46,6 @@ logger.add(
 async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting up TeleMT API Service...")
-    await init_db()
     start_scheduler()
     yield
     # Shutdown

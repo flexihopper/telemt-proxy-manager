@@ -50,7 +50,13 @@ cp .env.example .env
 docker-compose up -d
 ```
 
-### 4. Настройте TeleMT
+### 4. Примените миграции базы данных
+
+```bash
+uv run alembic upgrade head
+```
+
+### 5. Настройте TeleMT
 
 Скрипт автоматически откроет нужные порты и применит лимиты из вашего `.env`:
 
