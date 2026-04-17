@@ -26,11 +26,19 @@ class InterceptHandler(logging.Handler):
 
         logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
 
-# Очищаем старые настройки и ставим перехватчик
+# Очищаем старые настройки и ставим перехватчики
+log_level = "DEBUG" if settings.DEBUG else "INFO"
 logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
+
+# Устанавливаем уровни для сторонних библиотек, чтобы не шумели
+logging.getLogger("uvicorn.access").handlers = [InterceptHandler()]
+for _log in ["uvicorn", "uvicorn.error", "fastapi"]:
+    logging.getLogger(_log).handlers = [InterceptHandler()]
+
 logger.remove()
 logger.add(
     sys.stderr,
+    level=log_level,
     format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
 )
 
