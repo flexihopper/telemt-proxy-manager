@@ -1,3 +1,4 @@
+import logging
 import sys
 from contextlib import asynccontextmanager
 
@@ -8,7 +9,6 @@ from api.keys import router as keys_router
 from config import settings
 from services.scheduler import scheduler, start_scheduler
 
-import logging
 
 # Настройка логирования Loguru
 class InterceptHandler(logging.Handler):
@@ -24,6 +24,7 @@ class InterceptHandler(logging.Handler):
             depth += 1
 
         logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
+
 
 # Очищаем старые настройки и ставим перехватчики
 log_level = "DEBUG" if settings.DEBUG else "INFO"
